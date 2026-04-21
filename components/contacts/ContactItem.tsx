@@ -32,7 +32,7 @@ export const ContactItem = ({ contact }: ContactItemProps) => {
         </div>
       </div>
 
-      <div className="flex items-center gap-1 md:gap-2 opacity-0 group-hover:opacity-100 has-data-[state=open]:opacity-100 transition-opacity">
+      <div className="flex items-center gap-1 md:gap-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 has-data-[state=open]:opacity-100 transition-opacity">
         <Button icon={Mute} variant="secondary" />
         <Button icon={Call} variant="secondary" />
         <ContactMenu contact={contact} />
