@@ -132,7 +132,9 @@ export const ContactModal = ({
             label="Phone number"
             name="phoneNumber"
             placeholder="+01 234 5678"
-            defaultValue={state.inputs?.phoneNumber ?? contact?.phoneNumber}
+            defaultValue={
+              state.inputs?.phoneNumber ?? contact?.phoneNumber ?? ""
+            }
             error={state.errors?.phoneNumber}
           />
           <TextField
@@ -140,7 +142,7 @@ export const ContactModal = ({
             name="email"
             type="email"
             placeholder="jamie.wright@mail.com"
-            defaultValue={state.inputs?.email ?? contact?.email}
+            defaultValue={state.inputs?.email ?? contact?.email ?? ""}
             error={state.errors?.email}
           />
         </div>
