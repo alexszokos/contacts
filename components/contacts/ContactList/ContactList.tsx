@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { ContactItem } from "./ContactItem";
+import { ContactItem } from "../ContactItem/ContactItem";
 import { Contact } from "@prisma/client";
 
 export const ContactList = async () => {

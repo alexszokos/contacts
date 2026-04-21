@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/Button";
-import { ContactModal } from "./ContactModal";
+import { Button } from "@/components/ui/Button/Button";
+import { ContactModal } from "../ContactModal/ContactModal";
 import Add from "@/assets/icons/Add.svg";
 import { AnimatePresence } from "motion/react";
 

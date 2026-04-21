@@ -1,8 +1,8 @@
 "use client";
 
-import { Modal } from "../ui/Modal";
-import { Button } from "../ui/Button";
-import { TextField } from "../ui/TextField";
+import { Modal } from "../../ui/Modal/Modal";
+import { Button } from "../../ui/Button/Button";
+import { TextField } from "../../ui/TextField/TextField";
 import { useRef, useState, useActionState, useEffect } from "react";
 import Image from "next/image";
 import Add from "@/assets/icons/Add.svg";

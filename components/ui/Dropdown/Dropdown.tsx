@@ -1,9 +1,9 @@
 "use client";
 
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import { Text } from "./Text";
+import { Text } from "../Text/Text";
 import { ElementType } from "react";
-import { Icon } from "@/components/ui/Icon";
+import { Icon } from "@/components/ui/Icon/Icon";
 
 interface DropdownProps {
   trigger: React.ReactNode;

@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "@/components/ui/Button";
-import { Dropdown, DropdownItem } from "@/components/ui/Dropdown";
+import { Button } from "@/components/ui/Button/Button";
+import { Dropdown, DropdownItem } from "@/components/ui/Dropdown/Dropdown";
 import More from "@/assets/icons/More.svg";
 import Settings from "@/assets/icons/Settings.svg";
 import Favourite from "@/assets/icons/Favourite.svg";
@@ -9,7 +9,7 @@ import Delete from "@/assets/icons/Delete.svg";
 import { Contact } from "@prisma/client";
 import { useState, useTransition } from "react";
 import { deleteContact } from "@/lib/actions";
-import { ContactModal } from "./ContactModal";
+import { ContactModal } from "../ContactModal/ContactModal";
 import { AnimatePresence } from "motion/react";
 
 interface ContactMenuProps {

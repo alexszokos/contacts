@@ -1,7 +1,7 @@
-import { Text } from "@/components/ui/Text";
-import { Button } from "@/components/ui/Button";
-import { ContactList } from "@/components/contacts/ContactList";
-import { ContactAddNew } from "@/components/contacts/ContactAddNew";
+import { Text } from "@/components/ui/Text/Text";
+import { Button } from "@/components/ui/Button/Button";
+import { ContactList } from "@/components/contacts/ContactList/ContactList";
+import { ContactAddNew } from "@/components/contacts/ContactAddNew/ContactAddNew";
 import BackArrow from "@/assets/icons/BackArrow.svg";
 import LightMode from "@/assets/icons/LightMode.svg";
 import Settings from "@/assets/icons/Settings.svg";

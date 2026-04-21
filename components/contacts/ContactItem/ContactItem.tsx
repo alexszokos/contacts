@@ -1,9 +1,9 @@
-import { Text } from "@/components/ui/Text";
-import { Button } from "@/components/ui/Button";
+import { Text } from "@/components/ui/Text/Text";
+import { Button } from "@/components/ui/Button/Button";
 import Image from "next/image";
 import Mute from "@/assets/icons/Mute.svg";
 import Call from "@/assets/icons/Call.svg";
-import { ContactMenu } from "./ContactMenu";
+import { ContactMenu } from "../ContactMenu/ContactMenu";
 import { Contact } from "@prisma/client";
 
 interface ContactItemProps {

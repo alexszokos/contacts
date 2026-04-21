@@ -1,7 +1,7 @@
 import { ReactNode, ButtonHTMLAttributes, ElementType } from "react";
 import { cn } from "@/lib/utils";
-import { Text } from "./Text";
-import { Icon } from "./Icon";
+import { Text } from "../Text/Text";
+import { Icon } from "../Icon/Icon";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: ReactNode;
