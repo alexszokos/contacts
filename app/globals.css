@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-glysa: var(--font-glysa);
+  --font-lexend: var(--font-lexend);
+
+  --color-main-100: #141414;
+  --color-main-90: #191919;
+  --color-main-80: #1e1e1e;
+  --color-main-70: #232323;
+  --color-main-60: #282828;
+  --color-main-50: #2d2d2d;
+  --color-main-40: #323232;
+  --color-main-30: #373737;
+  --color-main-20: #3c3c3c;
+  --color-main-10: #414141;
+
+  --opacity-primary: 1;
+  --opacity-secondary: 0.56;
+  --opacity-disabled: 0.32;
+
+  --tracking-custom: 0.01em;
+
+  --bg-special-surface: linear-gradient(
+    180deg,
+    rgba(40, 40, 40, 0.7) 0%,
+    rgba(40, 40, 40, 1) 100%
+  );
+
+  --border-special-fade: linear-gradient(
+    180deg,
+    rgba(60, 60, 60, 1) 0%,
+    rgba(60, 60, 60, 0) 100%
+  );
+}
+
+.button-special {
+  background-color: #141414;
+  background-image: var(--bg-special-surface), var(--border-special-fade);
+  border: 1px solid transparent;
+  background-clip: padding-box, border-box;
+  background-origin: border-box;
+  position: relative;
+  isolation: isolate;
+}
+
+.button-special::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: white;
+  opacity: 0;
+  transition: opacity 80ms ease-out;
+  z-index: -1;
+}
+
+.button-special:hover::after,
+.button-special:active::after {
+  opacity: 0.04;
+}
