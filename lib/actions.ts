@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import { uploadImage } from "./storage";
 import fs from "fs/promises";
 import path from "path";
-import { MAX_FILE_SIZE } from "@/consts/limits";
+import { validateContactData } from "./validation";
 
 export type ActionState = {
   success: boolean;
@@ -31,15 +31,9 @@ export async function createContact(
   const phoneNumber = formData.get("phoneNumber") as string;
   const email = formData.get("email") as string;
   const imageFile = formData.get("image") as File | null;
+  const { errors, isValid } = validateContactData(formData);
 
-  const { errors, hasErrors } = validateContact(
-    name,
-    phoneNumber,
-    email,
-    imageFile,
-  );
-
-  if (hasErrors) {
+  if (!isValid) {
     return {
       success: false,
       message: "Validation failed.",
@@ -109,14 +103,9 @@ export async function updateContact(
   const email = formData.get("email") as string;
   const imageFile = formData.get("image") as File | null;
   const shouldDeleteImage = formData.get("shouldDeleteImage") === "true";
-  const { errors, hasErrors } = validateContact(
-    name,
-    phoneNumber,
-    email,
-    imageFile,
-  );
+  const { errors, isValid } = validateContactData(formData);
 
-  if (hasErrors) {
+  if (!isValid) {
     return {
       success: false,
       message: "Validation failed.",
@@ -172,39 +161,3 @@ async function deleteLocalFile(imagePath: string | null) {
     console.error(`Failed to delete file at ${filePath}:`, err);
   }
 }
-
-const validateContact = (
-  name: string,
-  phoneNumber: string,
-  email: string,
-  imageFile: File | null,
-) => {
-  const errors: ActionState["errors"] = {};
-
-  if (!name || name.trim().length < 1) {
-    errors.name = "Name is required.";
-  }
-
-  if (phoneNumber && phoneNumber.trim().length > 0) {
-    const sanitized = phoneNumber.trim().replace(/[\s-]/g, "");
-    const phoneRegex = /^\+?\d{7,15}$/;
-
-    if (!phoneRegex.test(sanitized)) {
-      errors.phoneNumber = "Invalid phone number format.";
-    }
-  }
-
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,24}$/;
-  if (email && !emailRegex.test(email)) {
-    errors.email = "A valid email address is required.";
-  }
-
-  if (imageFile && imageFile.size > MAX_FILE_SIZE) {
-    errors.image = "Image must be less than 500KB.";
-  }
-
-  return {
-    errors,
-    hasErrors: Object.keys(errors).length > 0,
-  };
-};

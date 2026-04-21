@@ -11,6 +11,7 @@ import Change from "@/assets/icons/Change.svg";
 import { createContact, ActionState, updateContact } from "@/lib/actions";
 import { Contact } from "@prisma/client";
 import { MAX_FILE_SIZE } from "@/consts/limits";
+import { validateContactData } from "@/lib/validation";
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -33,6 +34,7 @@ export const ContactModal = ({
     contact?.image || null,
   );
   const [shouldDeleteImage, setShouldDeleteImage] = useState(false);
+  const [clientErrors, setClientErrors] = useState<ActionState["errors"]>({});
 
   const [state, formAction, isPending] = useActionState(
     async (prevState: ActionState, formData: FormData) => {
@@ -48,6 +50,18 @@ export const ContactModal = ({
   useEffect(() => {
     if (state.success) onClose();
   }, [state.success, onClose]);
+
+  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+    const formData = new FormData(e.currentTarget);
+    const { errors, isValid } = validateContactData(formData);
+
+    if (!isValid) {
+      e.preventDefault();
+      setClientErrors(errors);
+    } else {
+      setClientErrors({});
+    }
+  };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -78,7 +92,11 @@ export const ContactModal = ({
       onClose={onClose}
       title={contact ? "Edit contact" : "Add contact"}
     >
-      <form action={formAction} className="flex flex-col gap-6 md:gap-12">
+      <form
+        action={formAction}
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-6 md:gap-12"
+      >
         <div className="flex flex-col gap-4 md:gap-6">
           <div className="flex items-center gap-4">
             <div className="relative w-18 h-18 md:w-22 md:h-22 rounded-full overflow-hidden shrink-0">
@@ -125,8 +143,8 @@ export const ContactModal = ({
             label="Name"
             name="name"
             placeholder="Jamie Wright"
-            defaultValue={state.inputs?.name ?? contact?.name}
-            error={state.errors?.name}
+            defaultValue={state.inputs?.name ?? contact?.name ?? ""}
+            error={clientErrors?.name || state.errors?.name}
           />
           <TextField
             label="Phone number"
@@ -135,7 +153,7 @@ export const ContactModal = ({
             defaultValue={
               state.inputs?.phoneNumber ?? contact?.phoneNumber ?? ""
             }
-            error={state.errors?.phoneNumber}
+            error={clientErrors?.phoneNumber || state.errors?.phoneNumber}
           />
           <TextField
             label="Email address"
@@ -143,7 +161,7 @@ export const ContactModal = ({
             type="email"
             placeholder="jamie.wright@mail.com"
             defaultValue={state.inputs?.email ?? contact?.email ?? ""}
-            error={state.errors?.email}
+            error={clientErrors?.email || state.errors?.email}
           />
         </div>
 
